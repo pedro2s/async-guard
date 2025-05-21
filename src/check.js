@@ -22,7 +22,7 @@ const paths = await globby(globArgs, {
 	cwd: globCwd,
 	absolute: true,
 	expandDirectories: {
-		extensions: ['js', 'jsx', 'ts', 'tsx'],
+		extensions: ['js'],
 	},
 	gitignore: true,
 });
