@@ -1,0 +1,19 @@
+{
+	"name": "async-guard",
+	"version": "1.0.0",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@babel/parser": "^7.27.2",
+		"@babel/traverse": "^7.27.1",
+		"chalk": "^5.4.1",
+		"globby": "^14.1.0"
+	}
+}
