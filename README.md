@@ -69,7 +69,7 @@ Quer contribuir? Toda ajuda é bem-vinda! Aqui estão algumas ideias:
 ### Comece agora:
 
 ```bash
-git clone https://github.com/seu-usuario/async-guard.git
+git clone https://github.com/pedro2s/async-guard.git
 cd async-guard
 npm install
 ```
