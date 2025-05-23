@@ -4,7 +4,8 @@
 	"main": "index.js",
 	"type": "module",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"prepare": "husky"
 	},
 	"keywords": [],
 	"author": "",
@@ -15,5 +16,13 @@
 		"@babel/traverse": "^7.27.1",
 		"chalk": "^5.4.1",
 		"globby": "^14.1.0"
+	},
+	"devDependencies": {
+		"husky": "^9.1.7",
+		"lint-staged": "^16.0.0",
+		"prettier": "3.5.3"
+	},
+	"lint-staged": {
+		"**/*": "prettier --write --ignore-unknown"
 	}
 }

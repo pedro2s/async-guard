@@ -16,7 +16,9 @@ const resolvedArgs = args.map((p) => path.resolve(process.cwd(), p));
 const globCwd = path.dirname(resolvedArgs[0]);
 
 // Caminhos relativos ao cwd do globby
-const globArgs = resolvedArgs.map((p) => path.relative(globCwd, p).split(path.sep).join(path.posix.sep));
+const globArgs = resolvedArgs.map((p) =>
+	path.relative(globCwd, p).split(path.sep).join(path.posix.sep),
+);
 
 const paths = await globby(globArgs, {
 	cwd: globCwd,
@@ -36,7 +38,9 @@ for (const file of paths) {
 		console.log(`\n${chalk.yellow('[WARNING]')} ${chalk.bold(p.message)}`);
 		console.log(`${chalk.cyan('File:')} ${file}`);
 		if (p.location) {
-			console.log(`Line ${p.location.start.line}, Column ${p.location.start.column}`);
+			console.log(
+				`Line ${p.location.start.line}, Column ${p.location.start.column}`,
+			);
 		}
 		if (p.codeSnippet) {
 			console.log(chalk.gray(indent(p.codeSnippet, 2)));

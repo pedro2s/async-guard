@@ -1,0 +1,17 @@
+# Ignore artifacts:
+build
+coverage
+node_modules
+dist
+# Ignore configuration files:
+.vscode
+.idea
+# Ignore logs:
+npm-debug.log*
+# Ignore environment variables:
+.env
+# Ignore documentation files:
+*.md
+# Ignore package lock files:
+package-lock.json
+

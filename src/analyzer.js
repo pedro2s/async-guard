@@ -17,28 +17,54 @@ export async function analyzeFile(filePath) {
 		traverse(ast, {
 			FunctionDeclaration(path) {
 				if (path.node.async && !hasTryCatch(path.node.body)) {
-					problems.push(makeProblem('Async function without try/catch', filePath, path.node.loc, path.toString()));
+					problems.push(
+						makeProblem(
+							'Async function without try/catch',
+							filePath,
+							path.node.loc,
+							path.toString(),
+						),
+					);
 				}
 			},
 			FunctionExpression(path) {
 				if (path.node.async && !hasTryCatch(path.node.body)) {
 					problems.push(
-						makeProblem('Async anonymous function without try/catch', filePath, path.node.loc, path.toString())
+						makeProblem(
+							'Async anonymous function without try/catch',
+							filePath,
+							path.node.loc,
+							path.toString(),
+						),
 					);
 				}
 			},
 			AwaitExpression(path) {
 				if (!isInsideTryCatch(path)) {
 					problems.push(
-						makeProblem('Await expression outside of try/catch', filePath, path.node.loc, path.toString())
+						makeProblem(
+							'Await expression outside of try/catch',
+							filePath,
+							path.node.loc,
+							path.toString(),
+						),
 					);
 				}
 			},
 			CallExpression(path) {
 				const callee = path.node.callee;
-				if (callee.type === 'MemberExpression' && callee.property.name === 'then' && !hasCatch(path)) {
+				if (
+					callee.type === 'MemberExpression' &&
+					callee.property.name === 'then' &&
+					!hasCatch(path)
+				) {
 					problems.push(
-						makeProblem('Promise .then() without .catch()', filePath, path.node.loc, codeFromPath(path))
+						makeProblem(
+							'Promise .then() without .catch()',
+							filePath,
+							path.node.loc,
+							codeFromPath(path),
+						),
 					);
 				}
 			},
@@ -53,8 +79,8 @@ export async function analyzeFile(filePath) {
 									'Promise constructor without try/catch',
 									filePath,
 									path.node.loc,
-									codeFromPath(path)
-								)
+									codeFromPath(path),
+								),
 							);
 						}
 					}
@@ -62,7 +88,11 @@ export async function analyzeFile(filePath) {
 			},
 		});
 	} catch (error) {
-		problems.push({ message: 'Error parsing file', file: filePath, error: error.message });
+		problems.push({
+			message: 'Error parsing file',
+			file: filePath,
+			error: error.message,
+		});
 	}
 
 	return problems;
@@ -88,7 +118,10 @@ function makeProblem(message, file, loc, snippet) {
 function hasCatch(path) {
 	let current = path;
 	while (current.parentPath) {
-		if (current.parentPath.node.type === 'CallExpression' && current.parentPath.node.callee.property?.name === 'catch') {
+		if (
+			current.parentPath.node.type === 'CallExpression' &&
+			current.parentPath.node.callee.property?.name === 'catch'
+		) {
 			return true;
 		}
 		current = current.parentPath;
